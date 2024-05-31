@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	//"github.com/moises-ph/ubiquitous-guacamole/chat-server/utils"
+	"github.com/moises-ph/ubiquitous-guacamole/chat-server/utils"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 		})
 	})
 
-	//router.GET("/module/test", )
+	router.GET("/module/test", utils.Testing)
 
 	//router.GET("test/testing", middleware)
 
