@@ -2,8 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/moises-ph/ubiquitous-guacamole/chat-server/utils"
+	"github.com/moises-ph/ubiquitous-guacamole/chat-server/handlers"
+	"github.com/moises-ph/ubiquitous-guacamole/chat-server/structs"
 )
+
+var users structs.User
 
 func main() {
 	router := gin.Default()
@@ -19,12 +22,7 @@ func main() {
 		})
 	})
 
-	router.GET("/module/test", utils.Testing)
+	router.POST("/postest", handlers.UserRegister)
 
-	//router.GET("test/testing", middleware)
-
-	/*router.POST("/post", func(c *gin.Context) {
-		c.
-	})*/
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
