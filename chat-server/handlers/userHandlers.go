@@ -7,7 +7,10 @@ import (
 
 func UserRegister(c *gin.Context) {
 	var newUser structs.User
-	c.BindJSON(&newUser)
 
+	err := c.BindJSON(&newUser)
+	if err != nil {
+		c.JSON(400, err.Error())
+	}
 	c.JSON(200, newUser)
 }
