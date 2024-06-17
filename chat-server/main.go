@@ -2,10 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/moises-ph/ubiquitous-guacamole/chat-server/db"
 	"github.com/moises-ph/ubiquitous-guacamole/chat-server/handlers"
 )
 
 func main() {
+	db.ConnectDb()
 	router := gin.Default()
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
