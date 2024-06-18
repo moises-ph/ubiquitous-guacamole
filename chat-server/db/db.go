@@ -16,8 +16,16 @@ func ConnectDb() {
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://"+user+":"+pass+"@chat.0qyc9ll.mongodb.net/?retryWrites=true&w=majority&appName=chat"))
 	if err != nil {
-		println(err.Error())
+		panic(err.Error())
 	}
-	println("Conected to the database")
 
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+
+	var Users = client.Database("Chat-server").Collection("users")
+
+	println("Conected to the database")
 }
