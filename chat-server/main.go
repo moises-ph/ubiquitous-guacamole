@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	Envs()
 	db.ConnectDb()
 	router := gin.Default()
 	router.GET("/ping", func(c *gin.Context) {
