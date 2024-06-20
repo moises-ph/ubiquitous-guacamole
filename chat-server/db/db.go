@@ -6,10 +6,11 @@ import (
 	"os"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+var Users *mongo.Collection
 
 func ConnectDb() {
 	user := os.Getenv("User")
@@ -23,22 +24,11 @@ func ConnectDb() {
 
 	defer func() {
 		if err := client.Disconnect(context.TODO()); err != nil {
-			println("disconnected from db")
+			fmt.Println("disconnected from db")
 			panic(err)
 		}
 	}()
 
-	var Users = client.Database("Chat-server").Collection("users")
-
-	var Name string = ""
-
-	var result bson.M
-	err = Users.FindOne(context.TODO(), bson.D{{"Key", Name}}).Decode(&result)
-
-	if err == mongo.ErrNoDocuments {
-		fmt.Printf("No document was found")
-		return
-	}
-
+	Users = client.Database("Chat-server").Collection("users")
 	println("Conected to the database")
 }
