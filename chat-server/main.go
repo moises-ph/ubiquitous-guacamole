@@ -22,7 +22,8 @@ func main() {
 		})
 	})
 
-	router.POST("/postest", handlers.UserRegister)
+	router.POST("/user", handlers.UserRegister)
+	router.GET("/user", handlers.UserRegister)
 
 	router.Run() // listen and serve on 0.0.0.0:8080
 }
