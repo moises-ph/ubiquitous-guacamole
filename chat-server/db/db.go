@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"time"
 
@@ -21,13 +20,6 @@ func ConnectDb() {
 	if err != nil {
 		panic(err.Error())
 	}
-
-	defer func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
-			fmt.Println("disconnected from db")
-			panic(err)
-		}
-	}()
 
 	Users = client.Database("Chat-server").Collection("users")
 	println("Conected to the database")

@@ -32,9 +32,15 @@ func UserRegister(c *gin.Context) {
 	c.JSON(200, newUser)
 }
 
-func GetUser(id string, c *gin.Context) {
+type userEmail struct {
+	Email string
+}
+
+func GetUser(c *gin.Context) {
 	var result bson.M
-	err := db.Users.FindOne(context.TODO(), bson.D{{"firstName", id}}).Decode(&result)
+	var email userEmail
+	c.BindJSON(&email)
+	err := db.Users.FindOne(context.TODO(), bson.D{{"Email", email.Email}}).Decode(&result)
 	if err != nil {
 		c.JSON(400, "user does not exist")
 	}
