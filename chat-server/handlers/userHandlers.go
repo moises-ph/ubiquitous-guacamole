@@ -17,6 +17,14 @@ func UserRegister(c *gin.Context) {
 		c.JSON(400, err.Error())
 	}
 
+	var findResult bson.M
+
+	err = db.Users.FindOne(context.TODO(), bson.D{{"Email", newUser.Email}}).Decode(&findResult)
+	if err == nil {
+		c.JSON(400, "user with this email already exist")
+		return
+	}
+
 	result, err := db.Users.InsertOne(context.TODO(), bson.D{
 		{"Id", newUser.Id},
 		{"Name", newUser.Name},
