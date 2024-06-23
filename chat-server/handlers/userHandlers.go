@@ -17,21 +17,15 @@ func UserRegister(c *gin.Context) {
 		c.JSON(400, err.Error())
 	}
 
-	var findResult bson.M
-
-	err = db.Users.FindOne(context.TODO(), bson.D{{"Email", newUser.Email}}).Decode(&findResult)
+	var existingUser structs.User
+	err = db.Users.FindOne(context.TODO(), bson.D{{"Email", newUser.Email}}).Decode(&existingUser)
 	if err == nil {
-		c.JSON(400, "user with this email already exist")
+		c.JSON(400, gin.H{"error": "user with this email already exists"})
 		return
 	}
+	println(err.Error())
 
-	result, err := db.Users.InsertOne(context.TODO(), bson.D{
-		{"Id", newUser.Id},
-		{"Name", newUser.Name},
-		{"Cellphone", newUser.Cellphone},
-		{"Email", newUser.Email},
-		{"Password", newUser.Password},
-	})
+	result, err := db.Users.InsertOne(context.TODO(), newUser)
 
 	if err != nil {
 		c.JSON(400, err.Error())
