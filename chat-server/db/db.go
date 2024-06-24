@@ -18,7 +18,7 @@ func ConnectDb() {
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://"+user+":"+pass+"@chat.0qyc9ll.mongodb.net/?retryWrites=true&w=majority&appName=chat"))
 	if err != nil {
-		panic(err.Error())
+		println("not connected to the database")
 	}
 
 	Users = client.Database("Chat-server").Collection("users")

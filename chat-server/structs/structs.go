@@ -1,11 +1,11 @@
 package structs
 
 type User struct {
-	Id        string `form:"id" binding:"required"`
-	Name      string `form:"name" binding:"required"`
-	Cellphone string `form:"cellphone" binding:"required"`
-	Email     string `form:"email" binding:"required"`
-	Password  string `form:"password" binding:"required"`
+	Id        string `form:"Id" binding:"required"`
+	Name      string `form:"Name" binding:"required"`
+	Cellphone string `form:"Cellphone" binding:"required"`
+	Email     string `form:"Email" binding:"required"`
+	Password  string `form:"Password" binding:"required"`
 }
 
 type Chat struct {

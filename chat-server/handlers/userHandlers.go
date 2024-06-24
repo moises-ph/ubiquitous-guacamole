@@ -18,7 +18,7 @@ func UserRegister(c *gin.Context) {
 	}
 
 	var existingUser structs.User
-	err = db.Users.FindOne(context.TODO(), bson.D{{"Email", newUser.Email}}).Decode(&existingUser)
+	err = db.Users.FindOne(context.TODO(), bson.D{{"email", newUser.Email}}).Decode(&existingUser)
 	if err == nil {
 		c.JSON(400, gin.H{"error": "user with this email already exists"})
 		return
@@ -42,7 +42,8 @@ func GetUser(c *gin.Context) {
 	var result bson.M
 	var email userEmail
 	c.BindJSON(&email)
-	err := db.Users.FindOne(context.TODO(), bson.D{{"Email", email.Email}}).Decode(&result)
+	err := db.Users.FindOne(context.TODO(), bson.D{{Key: "Email", Value: email.Email}}).Decode(&result)
+	println(err.Error())
 	if err != nil {
 		c.JSON(400, "user does not exist")
 	}
