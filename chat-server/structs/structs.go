@@ -1,5 +1,7 @@
 package structs
 
+import "time"
+
 type User struct {
 	Id        string `form:"Id" binding:"required"`
 	Name      string `form:"Name" binding:"required"`
@@ -15,10 +17,11 @@ type Chat struct {
 }
 
 type Message[Content Photo | Video | Audio] struct {
-	Id      string  `form:"id"`
-	Content Content `form:"content"`
-	Date    string  `form:"date"`
-	ChatId  string  `form:"chatid"`
+	Id        string    `form:"id"`
+	Content   Content   `form:"content"`
+	Date      string    `form:"date"`
+	ChatId    string    `form:"chatid"`
+	Timestamp time.Time `form: "timestamp"`
 }
 
 type Photo struct {
